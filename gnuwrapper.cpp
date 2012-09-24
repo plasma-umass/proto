@@ -68,7 +68,11 @@ extern "C" {
   static void *(*old_realloc_hook)(void *ptr, size_t size, const void *caller);
   static void *(*old_memalign_hook)(size_t alignment, size_t size, const void *caller);
 
+#if __GLIBC__ <= 2 && __GLIBC_MINOR__ < 14
   void (*__malloc_initialize_hook) (void) = my_init_hook;
+#else
+  void (*volatile __malloc_initialize_hook) (void) = my_init_hook;
+#endif
 
   static void my_init_hook (void) {
     // Store the old hooks.
