@@ -60,6 +60,9 @@
 #define ESC_ERR  BRIGHT_RED
 #define ESC_END  "\033[0m"
 
+#ifndef DEBUG_LEVEL
+#define DEBUG_LEVEL 0
+#endif
 
 /**
  * Print status-information message: level 0
