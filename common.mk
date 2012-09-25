@@ -50,19 +50,19 @@ build:: $(TARGETS)
 
 obj/%.o: %.c
 	@mkdir -p obj
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 obj/%.o: %.cpp
 	@mkdir -p obj
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $< -o $@
 	
 obj/%.o: %.cc
 	@mkdir -p obj
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $< -o $@
 	
 obj/%.o: %.C
 	@mkdir -p obj
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(filter %.$(SHLIB_SUFFIX), $(TARGETS)):: $(OBJS) $(INCLUDES)
 	$(CXXLIB) $(CXXFLAGS) $(INCFLAGS) $(OBJS) -o $@ $(LIBFLAGS)
