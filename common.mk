@@ -5,7 +5,7 @@ CPU ?= $(shell uname -m)
 # Set the default compilers and flags
 CC = gcc
 CXX = g++
-CFLAGS ?= -O3 -g -finline-limit=20000 -Wall
+CFLAGS ?= -O3 -g -finline-limit=20000 -L$(ROOT)
 CXXFLAGS ?= $(CFLAGS)
 
 # Include platform-specific rules
