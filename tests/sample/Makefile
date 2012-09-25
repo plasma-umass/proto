@@ -1,6 +1,6 @@
 ROOT = ../..
 TARGETS = runner
-LIBS = proto
+LIBS = gtest proto
 
 include $(ROOT)/common.mk
 
