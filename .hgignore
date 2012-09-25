@@ -1,0 +1,4 @@
+src/obj
+tests/*/obj
+libproto.so
+libproto.dylib
