@@ -7,7 +7,7 @@ CPU ?= i386
 # Set the default compilers and flags
 CC = gcc
 CXX = g++
-CFLAGS ?= -O3 -g -finline-limit=20000 -L$(ROOT)
+CFLAGS ?= -O3 -g -finline-limit=20000 -L$(ROOT) -Wall
 CXXFLAGS ?= $(CFLAGS)
 
 # Include platform-specific rules
@@ -31,16 +31,17 @@ RECURSIVE_TARGETS ?= clean build
 # Build by default
 all: build
 
+# Set the default source and include files with wildcards
+SRCS ?= $(wildcard *.c) $(wildcard *.cpp) $(wildcard *.cc) $(wildcard *.C)
+OBJS ?= $(addprefix obj/, $(patsubst %.c, %.o, $(patsubst %.cpp, %.o, $(patsubst %.cc, %.o, $(patsubst %.C, %.o, $(SRCS))))))
+INCLUDES ?= $(wildcard *.h) $(wildcard *.hpp) $(wildcard *.hh) $(wildcard *.H) $(wildcard $(addsuffix /*.h, $(INCLUDE_DIRS))) $(wildcard $(addsuffix /*.hpp, $(INCLUDE_DIRS))) $(wildcard $(addsuffix /*.hh, $(INCLUDE_DIRS))) $(wildcard $(addsuffix /*.H, $(INCLUDE_DIRS)))
+
 # Just remove the targets
 clean::
 ifneq ($(TARGETS),)
 	@rm -f $(TARGETS)
 endif
-
-# Set the default source and include files with wildcards
-SRCS ?= $(wildcard *.c) $(wildcard *.cpp) $(wildcard *.cc) $(wildcard *.C)
-OBJS ?= $(addprefix obj/, $(patsubst %.c, %.o, $(patsubst %.cpp, %.o, $(patsubst %.cc, %.o, $(patsubst %.C, %.o, $(SRCS))))))
-INCLUDES ?= $(wildcard *.h) $(wildcard *.hpp) $(wildcard *.hh) $(wildcard *.H) $(wildcard $(addsuffix /*.h, $(INCLUDE_DIRS))) $(wildcard $(addsuffix /*.hpp, $(INCLUDE_DIRS))) $(wildcard $(addsuffix /*.hh, $(INCLUDE_DIRS))) $(wildcard $(addsuffix /*.H, $(INCLUDE_DIRS)))
+	@rm -f $(OBJS)
 
 # Generate flags to link required libraries and get includes
 LIBFLAGS = $(addprefix -l, $(LIBS))
