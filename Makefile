@@ -49,7 +49,10 @@ gcc-sparc: $(SRCS) $(DEPS)
 #gcc-sparc: $(SRCS) $(DEPS)
 #	g++ -DNDEBUG -O3 -m32 $(INCLUDE_DIRS) -shared -fPIC -g -finline-limit=20000 $(SRCS) -o libproto.so  -ldl -lpthread
 
+test: all
+	python3 run_tests.py itest
+	python3 run_tests.py test
 
 clean:
-	rm -f libproto.so 
+	rm -f libproto.so
 
